@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "author": "Damian Pilarczyk, damianpilarczyk93@gmail.com",
   "license": "ISC",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:debug": "npx playwright test --debug",
+    "test:headed": "npx playwright test --headed",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "report": "npx playwright show-report"
+  },
   "dependencies": {
     "dotenv": "^16.3.1"
   },

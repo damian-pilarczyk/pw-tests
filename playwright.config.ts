@@ -20,12 +20,13 @@ const config: PlaywrightTestConfig = {
     baseURL: process.env.base_url,
     trace: 'on-first-retry',
   },
-  globalSetup: './utilities/global-setup.ts',
+  // globalSetup: './base/global-setup.ts',
   projects: [
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+        baseURL: 'https://www.saucedemo.com/',
       },
     },
 

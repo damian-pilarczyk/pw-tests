@@ -5,7 +5,12 @@
     "baseUrl": "./",
     "moduleResolution": "node",
     "types": ["node"],
-    "lib": ["ES2020", "dom"]
+    "lib": ["ES2020", "dom"],
+    "paths": {
+      "@base/*": ["base/*"],
+      "@models/*": ["models/*"],
+      "@ui/*": ["ui/*"]
+    }
   },
   "include": ["**/*.ts"]
 }
