@@ -1,6 +1,6 @@
 import { User } from '@models/user.interface';
 import { loc } from '@ui/locators/loc';
-import { BasePage } from './base-page.abstract';
+import { BasePage } from '@pages/base-page.abstract';
 
 export class LoginPage extends BasePage {
   async login(user: Pick<User, 'username' | 'password'>): Promise<void> {

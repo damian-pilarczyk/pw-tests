@@ -8,8 +8,13 @@
     "lib": ["ES2020", "dom"],
     "paths": {
       "@base/*": ["base/*"],
+      "@data/*": ["data/*"],
       "@models/*": ["models/*"],
-      "@ui/*": ["ui/*"]
+      "@helpers/*": ["helpers/*"],
+      "@ui/*": ["ui/*"],
+      "@components/*": ["ui/components/*"],
+      "@locators/*": ["ui/locators/*"],
+      "@pages/*": ["ui/pages/*"]
     }
   },
   "include": ["**/*.ts"]

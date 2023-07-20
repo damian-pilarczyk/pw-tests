@@ -1,4 +1,4 @@
-import { dataTest } from '@ui/locators/utils';
+import { dataTest } from '@locators/utils';
 
 export const loginLoc = {
   input: {

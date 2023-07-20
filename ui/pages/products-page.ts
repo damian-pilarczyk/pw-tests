@@ -1,9 +1,9 @@
 import { Product } from '@models/products.interface';
 import { SortType } from '@models/sort-type.type';
 import { expect } from '@playwright/test';
-import { loc } from '@ui/locators/loc';
-import { priceToNumber } from 'helpers/convert';
-import { BasePage } from './base-page.abstract';
+import { loc } from '@locators/loc';
+import { priceToNumber } from '@helpers/convert';
+import { BasePage } from '@pages/base-page.abstract';
 
 export class ProductsPage extends BasePage {
   async addSingleProductToCart(product: Product): Promise<void> {
@@ -23,11 +23,11 @@ export class ProductsPage extends BasePage {
     await this.page.selectOption(loc.product.dropdown.sort, sortType);
   }
 
-  async verifyProductsOrder(sortType: SortType): Promise<void> {
+  async verifyProductsSorting(sortType: SortType): Promise<void> {
     const products: Product[] = await Promise.all(
       (await this.page.locator(loc.product.container).all()).map(async (p) => ({
-        title: await p.locator(loc.product.label.title).textContent(),
-        price: await p.locator(loc.product.label.price).textContent(),
+        title: await p.locator(loc.itemComp.label.productName).textContent(),
+        price: await p.locator(loc.itemComp.label.productPrice).textContent(),
       })),
     );
 

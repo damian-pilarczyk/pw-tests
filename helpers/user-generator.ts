@@ -1,4 +1,4 @@
-import { User } from 'models/user.interface';
+import { User } from '@models/user.interface';
 import { faker } from '@faker-js/faker';
 
 function generateUser(username: string, password: string): User {

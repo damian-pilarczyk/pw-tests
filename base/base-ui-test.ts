@@ -1,7 +1,7 @@
 import { User } from '@models/user.interface';
 import { test as baseTest } from '@playwright/test';
 import { Ui } from '@ui/ui';
-import { generateStandardUser } from 'helpers/user-generator';
+import { generateStandardUser } from '@helpers/user-generator';
 
 type MyFixtures = {
   ui: Ui;
