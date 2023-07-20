@@ -1,7 +1,7 @@
-import { itemLoc } from './item-component';
-import { loginLoc } from './login-component';
+import { productLoc } from './product-page';
+import { loginLoc } from './login-page';
 
 export const loc = {
   login: loginLoc,
-  item: itemLoc,
+  product: productLoc,
 };
