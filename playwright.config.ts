@@ -27,6 +27,7 @@ const config: PlaywrightTestConfig = {
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'https://www.saucedemo.com/',
+        screenshot: 'only-on-failure',
       },
     },
 
