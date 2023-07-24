@@ -1,17 +1,18 @@
 name: E2E UI tests
 on:
   workflow_dispatch:
-    browser:
-      type: choice
-      description: browser
-      default: any
-      options:
-        - 'any'
-        - 'chromium'
-        - 'firefox'
-        - 'webkit'
-        - 'Mobile Chrome'
-        - 'Mobile Safari'
+    inputs:
+      browser:
+        type: choice
+        description: browser
+        default: any
+        options:
+          - 'any'
+          - 'chromium'
+          - 'firefox'
+          - 'webkit'
+          - 'Mobile Chrome'
+          - 'Mobile Safari'
 jobs:
   test:
     timeout-minutes: 60
