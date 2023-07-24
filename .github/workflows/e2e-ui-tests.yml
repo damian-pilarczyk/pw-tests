@@ -5,9 +5,9 @@ on:
       browser:
         type: choice
         description: browser
-        default: any
+        default: 'all browsers'
         options:
-          - 'any'
+          - 'all browsers'
           - 'chromium'
           - 'firefox'
           - 'webkit'
@@ -27,10 +27,10 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run tests for a specific project
-        if: ${{ github.event.inputs.browser }} != 'any'
+        if: github.event.inputs.browser != 'all browsers'
         run: npx playwright test --project=${{ github.event.inputs.browser }}
       - name: Run tests for all ui projects
-        if: ${{ github.event.inputs.browser }} == 'any'
+        if: github.event.inputs.browser == 'all browsers'
         run: npm run test:e2e:ui
       - uses: actions/upload-artifact@v3
         if: always()
