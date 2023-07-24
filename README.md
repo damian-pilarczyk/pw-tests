@@ -6,7 +6,8 @@ Simple tests using playwright for UI (https://saucedemo.com) and API (https://re
 
 1. Copy the file `.env.example` and paste it to root folder of the project as `.env`, then specify all environmental variables (usernames and passwords are printed on the https://saucedemo.com page).
 2. Run `npm ci` in the terminal.
-3. Run `npm run test` to run all of the testcases against all browsers. Other scripts you can ind in `package.json`
+3. Run `npm playwright install` to download browsers.
+4. Run `npm run test` to run all of the testcases against all browsers. Other scripts you can ind in `package.json`
 
 ## github actions
 
