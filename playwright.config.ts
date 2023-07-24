@@ -17,61 +17,57 @@ const config: PlaywrightTestConfig = {
   reporter: 'html',
   use: {
     actionTimeout: 0,
-    baseURL: process.env.base_url,
+    baseURL: 'https://www.saucedemo.com/',
     trace: 'on-first-retry',
   },
-  // globalSetup: './base/global-setup.ts',
   projects: [
+    {
+      name: 'API',
+      use: {
+        baseURL: 'https://reqres.in/api/',
+      },
+      testDir: './tests/api',
+    },
     {
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'https://www.saucedemo.com/',
         screenshot: 'only-on-failure',
       },
+      testDir: './tests/ui',
     },
-
-    // {
-    //   name: 'firefox',
-    //   use: {
-    //     ...devices['Desktop Firefox'],
-    //   },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: {
-    //     ...devices['Desktop Safari'],
-    //   },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //   },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: {
-    //     channel: 'msedge',
-    //   },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
-    // },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        screenshot: 'only-on-failure',
+      },
+      testDir: './tests/ui',
+    },
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari'],
+        screenshot: 'only-on-failure',
+      },
+      testDir: './tests/ui',
+    },
+    {
+      name: 'Mobile Chrome',
+      use: {
+        ...devices['Pixel 5'],
+        screenshot: 'only-on-failure',
+      },
+      testDir: './tests/ui',
+    },
+    {
+      name: 'Mobile Safari',
+      use: {
+        ...devices['iPhone 13 Mini'],
+        screenshot: 'only-on-failure',
+      },
+      testDir: './tests/ui',
+    },
   ],
 };
 

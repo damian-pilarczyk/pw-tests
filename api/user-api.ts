@@ -3,7 +3,7 @@ import { ReqresUserCreate, ReqresUserGet, ReqresUserUpdate } from '@models/reqre
 import { APIRequestContext, APIResponse, expect } from '@playwright/test';
 
 export class UserApi {
-  private url = 'https://reqres.in/api/users';
+  private url = 'users';
   constructor(private request: APIRequestContext) {}
 
   async getUser(id: number): Promise<APIResponse> {

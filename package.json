@@ -8,6 +8,8 @@
     "test:runner": "npx playwright test --ui",
     "test:debug": "npx playwright test --debug",
     "test:headed": "npx playwright test --headed",
+    "test:e2e:ui": "npx playwright test tests/ui",
+    "test:api": "npx playwright test tests/api",
     "lint": "npx eslint .",
     "lint:fix": "npx eslint . --fix",
     "report": "npx playwright show-report"
