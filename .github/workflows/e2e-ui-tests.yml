@@ -28,7 +28,7 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run tests for a specific project
         if: github.event.inputs.browser != 'all browsers'
-        run: npx playwright test --project="${{ github.event.inputs.browser }}""
+        run: npx playwright test --project="${{ github.event.inputs.browser }}"
       - name: Run tests for all ui projects
         if: github.event.inputs.browser == 'all browsers'
         run: npm run test:e2e:ui
