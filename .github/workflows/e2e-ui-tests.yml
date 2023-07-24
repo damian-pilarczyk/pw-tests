@@ -13,6 +13,13 @@ on:
           - 'webkit'
           - 'Mobile Chrome'
           - 'Mobile Safari'
+
+env:
+  USER_STANDARD_USERNAME: ${{ secrets.USER_STANDARD_USERNAME }}
+  USER_STANDARD_PASSWORD: ${{ vars.USER_STANDARD_PASSWORD }}
+  USER_LOCKED_OUT_USERNAME: ${{ secrets.USER_LOCKED_OUT_USERNAME }}
+  USER_LOCKED_OUT_PASSWORD: ${{ secrets.USER_LOCKED_OUT_PASSWORD }}
+
 jobs:
   test:
     timeout-minutes: 60
