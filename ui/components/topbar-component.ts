@@ -1,8 +1,9 @@
-import { loc } from '@locators/loc';
-import { BasePage } from '@pages/base-page.abstract';
+import { BaseComponent } from './base-component.abstract';
 
-export class TopBar extends BasePage {
+export class TopBar extends BaseComponent {
+  readonly cart = this.box.locator('.shopping_cart_link');
+
   async goToCart(): Promise<void> {
-    await this.page.locator(loc.topbar.button.cart).click();
+    await this.cart.click();
   }
 }

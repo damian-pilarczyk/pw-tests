@@ -1,12 +1,12 @@
-import { test } from '@base/base-ui-test';
+import { test, expect } from '@base/base-ui-test';
 import { SortType } from '@models/sort-type.type';
 
 const testCase = (sortType: SortType): void => {
-  test(sortType, async ({ ui, standardUser }) => {
-    await ui.visit('/');
-    await ui.loginPage.login(standardUser);
-    await ui.productsPage.sort(sortType);
-    await ui.productsPage.verifyProductsSorting(sortType);
+  test(sortType, async ({ ui: { visit, loginPage, productsPage }, users: { standardUser } }) => {
+    await visit('/');
+    await loginPage.login(standardUser);
+    await productsPage.sort(sortType);
+    await expect(productsPage).toHaveProductsOrder(sortType);
   });
 };
 

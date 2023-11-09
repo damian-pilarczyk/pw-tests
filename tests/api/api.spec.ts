@@ -35,14 +35,14 @@ test.describe('Reqres API tests', () => {
   }
 
   test('Get 10 single users', async ({ api }) => {
-    const responses: APIResponse[] = [];
+    const responses: Promise<APIResponse>[] = [];
 
     for (let i = 1; i < 11; i++) {
-      const res = await api.user.getUser(i);
+      const res = api.user.getUser(i);
       responses.push(res);
     }
 
-    for (const res of responses) {
+    for await (const res of responses) {
       expect(res.status()).toEqual(200);
     }
   });

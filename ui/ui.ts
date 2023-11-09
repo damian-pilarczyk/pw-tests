@@ -7,18 +7,30 @@ import { LoginPage } from './pages/login-page';
 import { ProductsPage } from './pages/products-page';
 import { YourInfoPage } from './pages/your-info-page';
 
-export class Ui {
-  constructor(private page: Page) {}
+export interface Ui {
+  topbar: TopBar;
+  loginPage: LoginPage;
+  productsPage: ProductsPage;
+  cartPage: CartPage;
+  yourInfoPage: YourInfoPage;
+  checkoutCompletePage: CheckoutCompletePage;
+  checkoutOverviewPage: CheckoutOverviewPage;
 
-  topbar = new TopBar(this.page);
-  loginPage = new LoginPage(this.page);
-  productsPage = new ProductsPage(this.page);
-  cartPage = new CartPage(this.page);
-  yourInfoPage = new YourInfoPage(this.page);
-  checkoutCompletePage = new CheckoutCompletePage(this.page);
-  checkoutOverviewPage = new CheckoutOverviewPage(this.page);
+  visit: (url: string) => Promise<void>;
+}
 
-  async visit(url: string): Promise<void> {
-    await this.page.goto(url);
-  }
+export function getUi(page: Page): Ui {
+  return {
+    topbar: new TopBar(page.locator('#header_container')),
+    loginPage: new LoginPage(page),
+    productsPage: new ProductsPage(page),
+    cartPage: new CartPage(page),
+    yourInfoPage: new YourInfoPage(page),
+    checkoutCompletePage: new CheckoutCompletePage(page),
+    checkoutOverviewPage: new CheckoutOverviewPage(page),
+
+    visit: async (url: string): Promise<void> => {
+      await page.goto(url);
+    },
+  };
 }

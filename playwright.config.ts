@@ -19,6 +19,7 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
     baseURL: 'https://www.saucedemo.com/',
     trace: 'on-first-retry',
+    testIdAttribute: 'data-test',
   },
   projects: [
     {

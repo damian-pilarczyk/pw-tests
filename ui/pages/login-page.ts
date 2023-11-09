@@ -1,17 +1,15 @@
 import { User } from '@models/user.interface';
-import { loc } from '@ui/locators/loc';
 import { BasePage } from '@pages/base-page.abstract';
-import { expect } from '@playwright/test';
 
 export class LoginPage extends BasePage {
-  async login(user: Pick<User, 'username' | 'password'>): Promise<void> {
-    await this.page.locator(loc.login.input.username).type(user.username);
-    await this.page.locator(loc.login.input.password).type(user.password);
-    await this.page.locator(loc.login.button.login).click();
-  }
+  readonly usernameInput = this.page.getByTestId('username');
+  readonly passwordInput = this.page.getByTestId('password');
+  readonly loginBtn = this.page.getByTestId('login-button');
+  readonly error = this.page.getByTestId('error');
 
-  async verifyUserIsLoggedIn(): Promise<void> {
-    const error = this.page.locator(loc.login.label.error);
-    await expect(error).toBeHidden();
+  async login({ username, password }: User): Promise<void> {
+    await this.usernameInput.type(username);
+    await this.passwordInput.type(password);
+    await this.loginBtn.click();
   }
 }

@@ -1,15 +1,19 @@
 import { User } from '@models/user.interface';
-import { loc } from '@locators/loc';
 import { BasePage } from '@pages/base-page.abstract';
 
 export class YourInfoPage extends BasePage {
-  async fillUserInfo(user: Pick<User, 'firstName' | 'lastName' | 'zip'>): Promise<void> {
-    await this.page.locator(loc.yourInfo.input.firstName).type(user.firstName);
-    await this.page.locator(loc.yourInfo.input.lastName).type(user.lastName);
-    await this.page.locator(loc.yourInfo.input.zip).type(user.zip);
+  readonly firstNameInput = this.page.getByTestId('firstName');
+  readonly lastNameInput = this.page.getByTestId('lastName');
+  readonly zipInput = this.page.getByTestId('postalCode');
+  readonly continueBtn = this.page.getByTestId('continue');
+
+  async fillUserInfo({ firstName, lastName, zip }: User): Promise<void> {
+    await this.firstNameInput.type(firstName);
+    await this.lastNameInput.type(lastName);
+    await this.zipInput.type(zip);
   }
 
   async continue(): Promise<void> {
-    await this.page.locator(loc.yourInfo.button.continue).click();
+    await this.continueBtn.click();
   }
 }

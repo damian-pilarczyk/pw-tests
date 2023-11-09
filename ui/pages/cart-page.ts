@@ -1,16 +1,21 @@
 import { Product } from '@models/products.interface';
-import { loc } from '@locators/loc';
 import { BasePage } from '@pages/base-page.abstract';
+import { BaseComponent } from '@ui/components/base-component.abstract';
+import { dataTestBeginsWith } from 'utils/selectors';
+
+class CartItem extends BaseComponent {
+  readonly removeBtn = this.box.locator(dataTestBeginsWith('remove'));
+}
 
 export class CartPage extends BasePage {
+  readonly cartItem = (title: string) => new CartItem(this.page.locator('.cart_item', { hasText: title }));
+  readonly checkoutBtn = this.page.getByTestId('checkout');
+
   async checkout(): Promise<void> {
-    await this.page.locator(loc.cart.button.checkout).click();
+    await this.checkoutBtn.click();
   }
 
-  async removeProduct(product: Product): Promise<void> {
-    const title = this.page.locator(loc.itemComp.label.productName).getByText(product.title);
-    const item = this.page.locator(loc.itemComp.container.product, { has: title });
-    const removeBtn = item.locator(loc.cart.button.remove);
-    await removeBtn.click();
+  async removeProduct({ title }: Product): Promise<void> {
+    await this.cartItem(title).removeBtn.click();
   }
 }

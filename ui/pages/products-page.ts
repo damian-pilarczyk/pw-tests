@@ -1,16 +1,21 @@
 import { Product } from '@models/products.interface';
 import { SortType } from '@models/sort-type.type';
-import { expect } from '@playwright/test';
-import { loc } from '@locators/loc';
-import { priceToNumber } from '@helpers/convert';
 import { BasePage } from '@pages/base-page.abstract';
+import { BaseComponent } from '@ui/components/base-component.abstract';
+import { dataTest, dataTestBeginsWith } from 'utils/selectors';
+
+class ItemComponent extends BaseComponent {
+  readonly name = this.box.locator('.inventory_item_name');
+  readonly price = this.box.locator('.inventory_item_price');
+  readonly addToCartBtn = this.box.locator(dataTestBeginsWith('add-to-cart'));
+}
 
 export class ProductsPage extends BasePage {
-  async addSingleProductToCart(product: Product): Promise<void> {
-    const title = this.page.getByText(product.title);
-    const item = this.page.locator(loc.product.container, { has: title });
-    const addToCartBtn = item.locator(loc.product.button.addToCart);
-    await addToCartBtn.click();
+  readonly itemComponentLoc = this.page.locator('.inventory_item');
+  readonly itemComponent = (name: string) => new ItemComponent(this.itemComponentLoc.filter({ hasText: name }));
+
+  async addSingleProductToCart({ title }: Product): Promise<void> {
+    await this.itemComponent(title).addToCartBtn.click();
   }
 
   async addToCart(products: Product[]): Promise<void> {
@@ -20,60 +25,20 @@ export class ProductsPage extends BasePage {
   }
 
   async sort(sortType: SortType): Promise<void> {
-    await this.page.selectOption(loc.product.dropdown.sort, sortType);
+    await this.page.selectOption(dataTest('product_sort_container'), sortType);
   }
 
-  async verifyProductsSorting(sortType: SortType): Promise<void> {
+  async getProducts(): Promise<Product[]> {
     const products: Product[] = await Promise.all(
-      (await this.page.locator(loc.product.container).all()).map(async (p) => ({
-        title: await p.locator(loc.itemComp.label.productName).textContent(),
-        price: await p.locator(loc.itemComp.label.productPrice).textContent(),
-      })),
+      (await this.itemComponentLoc.all()).map(async (p) => {
+        const itemComp = new ItemComponent(p);
+        return {
+          title: await itemComp.name.textContent(),
+          price: await itemComp.price.textContent(),
+        };
+      }),
     );
 
-    switch (sortType) {
-      case 'az':
-        this.verifyAzOrder(products);
-        break;
-      case 'za':
-        this.verifyZaOrder(products);
-        break;
-      case 'lohi':
-        this.verifyLoHiOrder(products);
-        break;
-      case 'hilo':
-        this.verifyHiLoOrder(products);
-        break;
-    }
-  }
-
-  private verifyLoHiOrder(products: Product[]): void {
-    for (let i = 1; i < products.length; i++) {
-      const price1 = priceToNumber(products[i - 1].price);
-      const price2 = priceToNumber(products[i].price);
-      expect(price2).toBeGreaterThanOrEqual(price1);
-    }
-  }
-
-  private verifyHiLoOrder(products: Product[]): void {
-    for (let i = 1; i < products.length; i++) {
-      const price1 = priceToNumber(products[i - 1].price);
-      const price2 = priceToNumber(products[i].price);
-      expect(price2).toBeLessThanOrEqual(price1);
-    }
-  }
-
-  private verifyAzOrder(products: Product[]): void {
-    for (let i = 1; i < products.length; i++) {
-      const compare = products[i].title.localeCompare(products[i - 1].title);
-      expect(compare).toBeGreaterThanOrEqual(0);
-    }
-  }
-
-  private verifyZaOrder(products: Product[]): void {
-    for (let i = 1; i < products.length; i++) {
-      const compare = products[i].title.localeCompare(products[i - 1].title);
-      expect(compare).toBeLessThanOrEqual(0);
-    }
+    return products;
   }
 }

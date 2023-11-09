@@ -56,9 +56,10 @@ export class UserApi {
   }
 
   async verifyGetUserResponseTime(delay: number): Promise<void> {
+    const expectedDelay = 1000 * delay + 500;
     const startTime = new Date().getTime();
     await this.getUsersList(delay);
     const endTime = new Date().getTime();
-    expect(endTime - startTime).toBeLessThan(1000);
+    expect(endTime - startTime).toBeLessThan(expectedDelay);
   }
 }
