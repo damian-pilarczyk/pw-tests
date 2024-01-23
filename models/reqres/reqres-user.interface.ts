@@ -1,9 +1,11 @@
 export interface ReqresUserGet {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
+  data: {
+    id: number;
+    email: string;
+    first_name: string;
+    last_name: string;
+    avatar: string;
+  }[];
 }
 
 export interface ReqresUserUpdate {
@@ -14,4 +16,8 @@ export interface ReqresUserUpdate {
 export interface ReqresUserCreate {
   name: string;
   job: string;
+}
+
+export interface Data<T> {
+  data: T;
 }

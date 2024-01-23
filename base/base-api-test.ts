@@ -1,12 +1,12 @@
 import { test as baseTest } from '@playwright/test';
-import { Api } from 'api/api';
+import { UserApi } from 'api/user-api';
 
 type MyFixtures = {
-  api: Api;
+  userApi: UserApi;
 };
 
 export const test = baseTest.extend<MyFixtures>({
-  api: async ({ request }, use) => {
-    await use(new Api(request));
+  userApi: async ({ request }, use) => {
+    await use(new UserApi(request));
   },
 });
